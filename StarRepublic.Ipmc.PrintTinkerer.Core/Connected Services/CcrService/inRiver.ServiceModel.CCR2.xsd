@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="inRiver.ServiceModel.CCR2" elementFormDefault="qualified" targetNamespace="inRiver.ServiceModel.CCR2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="editionId" type="xs:string" />
+</xs:schema>
