@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="inRiver.ServiceModel.CCR" elementFormDefault="qualified" targetNamespace="inRiver.ServiceModel.CCR" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="getArticle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="articleIdentifier" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getArticleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getArticleReturn" type="tns:Article" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Article">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="hasChildren" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="attributes" type="tns:ArrayOfAttribute" />
+      <xs:element minOccurs="0" maxOccurs="1" name="countrySpecificArticleIds" type="tns:ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="identifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="type" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="timeStamp" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfAttribute">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Attribute" nillable="true" type="tns:Attribute" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Attribute">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="defaultFetchStrategy" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="identifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="imageValues" type="tns:ArrayOfImageAttributeValue" />
+      <xs:element minOccurs="1" maxOccurs="1" name="metaAttribute" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="order" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="orderPrioId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="1" maxOccurs="1" name="prio" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="textValue" type="tns:TextAttributeValue" />
+      <xs:element minOccurs="0" maxOccurs="1" name="textValueAsString" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="textValues" type="tns:ArrayOfTextAttributeValue" />
+      <xs:element minOccurs="1" maxOccurs="1" name="translated" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="versionIdentifier" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="timeStamp" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="delimiter" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfImageAttributeValue">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageAttributeValue" nillable="true" type="tns:ImageAttributeValue" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ImageAttributeValue">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseAttributeValue">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="extension" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="filesize" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="height" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="imageStream" type="xs:base64Binary" />
+          <xs:element minOccurs="0" maxOccurs="1" name="metadata" type="tns:ArrayOfMetadataPair" />
+          <xs:element minOccurs="0" maxOccurs="1" name="mimeType" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="path" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="previewImage" type="tns:PreviewImage" />
+          <xs:element minOccurs="1" maxOccurs="1" name="resolution" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="width" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="resourceFileId" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="imageUrl" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BaseAttributeValue" abstract="true">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="identifier" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TextAttributeValue">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseAttributeValue">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="asString" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="value" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfMetadataPair">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MetadataPair" nillable="true" type="tns:MetadataPair" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MetadataPair">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="key" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PreviewImage">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="height" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="image" type="xs:base64Binary" />
+      <xs:element minOccurs="0" maxOccurs="1" name="mimeType" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="resolution" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="width" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTextAttributeValue">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TextAttributeValue" nillable="true" type="tns:TextAttributeValue" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAttribute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="article" type="tns:Article" />
+        <xs:element minOccurs="1" maxOccurs="1" name="editionId" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="attrSet" type="tns:AttributeSet" />
+        <xs:element minOccurs="0" maxOccurs="1" name="attributeIdentifier" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="attributeValueIdentifier" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="preview" type="xs:boolean" />
+        <xs:element minOccurs="1" maxOccurs="1" name="applyFormatters" type="xs:boolean" />
+        <xs:element minOccurs="1" maxOccurs="1" name="isHighRes" nillable="true" type="xs:boolean" />
+        <xs:element minOccurs="0" maxOccurs="1" name="resourceType" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="resourceFileId" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="onlyAttributeData" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AttributeSet">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="type" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="group" type="tns:AttributeSetGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeSetGroup">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="parent" type="tns:AttributeSetGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAttributeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getAttributeReturn" type="tns:Attribute" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getAttributes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="articles" type="tns:ArrayOfArticle" />
+        <xs:element minOccurs="1" maxOccurs="1" name="editionId" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="attrSet" type="tns:AttributeSet" />
+        <xs:element minOccurs="1" maxOccurs="1" name="preview" type="xs:boolean" />
+        <xs:element minOccurs="1" maxOccurs="1" name="applyFormatters" type="xs:boolean" />
+        <xs:element minOccurs="1" maxOccurs="1" name="isHighRes" nillable="true" type="xs:boolean" />
+        <xs:element minOccurs="0" maxOccurs="1" name="articleIdAndResourceFileId" type="tns:ArrayOfArticleIdResourceFileId" />
+        <xs:element minOccurs="1" maxOccurs="1" name="onlyAttributeData" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfArticle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Article" nillable="true" type="tns:Article" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfArticleIdResourceFileId">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArticleIdResourceFileId" nillable="true" type="tns:ArticleIdResourceFileId" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArticleIdResourceFileId">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="articleId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="resourceFileId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAttributesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getAttributesReturn" type="tns:ArrayOfArticle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getAttributeSetImpl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="attributeSet" type="tns:AttributeSet" />
+        <xs:element minOccurs="0" maxOccurs="1" name="edition" type="tns:Edition" />
+        <xs:element minOccurs="0" maxOccurs="1" name="article" type="tns:Article" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Edition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="businessUnit" type="tns:BusinessUnit" />
+      <xs:element minOccurs="1" maxOccurs="1" name="commonLanguage" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="country" type="tns:Country" />
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="language" type="tns:Language" />
+      <xs:element minOccurs="0" maxOccurs="1" name="text" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="unitType" type="tns:UnitType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="versionCode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="versionName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BusinessUnit">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="identifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Country">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="identifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Language">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="code" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="identifier" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnitType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAttributeSetImplResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getAttributeSetImplReturn" type="tns:AttributeSetImpl" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AttributeSetImpl">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="attributes" type="tns:ArrayOfAttributeMapping" />
+      <xs:element minOccurs="0" maxOccurs="1" name="orderedAttributes" type="tns:ArrayOfAttributeMapping" />
+      <xs:element minOccurs="0" maxOccurs="1" name="attributeSet" type="tns:AttributeSet" />
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="tableDefinition" type="tns:TableDefinition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfAttributeMapping">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AttributeMapping" nillable="true" type="tns:AttributeMapping" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeMapping">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:long" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Order" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Prio" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AttributeSetImplId" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Attribute" type="tns:AttributeDefinition" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TableColumnId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="delimiter" type="tns:Delimiter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Identifier" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MetaAttribute" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DefaultFetchStrategy" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsCustomAttribute" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Delimiter">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TableDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="1" maxOccurs="1" name="removeEmptyRows" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="tableColumns" type="tns:ArrayOfTableColumn" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTableColumn">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TableColumn" nillable="true" type="tns:TableColumn" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TableColumn">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="attributes" type="tns:ArrayOfAttribute" />
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="identifier" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="removeIfEmpty" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="tableDefinition" type="tns:TableDefinition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="title" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="widthMultiplier" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="widthInMM" nillable="true" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" name="columnIndex" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAllEditions">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="getAllEditionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getAllEditionsReturn" type="tns:ArrayOfEdition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfEdition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Edition" nillable="true" type="tns:Edition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getArticles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="documentId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="parentArticleIdentifier" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getArticlesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getArticlesReturn" type="tns:ArrayOfArticle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="searchSection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="searchString" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="searchSectionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="structureObjects" type="tns:ArrayOfStructureObject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfStructureObject">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StructureObject" nillable="true" type="tns:StructureObject" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StructureObject">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SectionId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getSections">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="entityId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getSectionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="structureObjects" type="tns:ArrayOfStructureObject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getDocumentEditions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="documentId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getDocumentEditionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getDocumentEditionsReturn" type="tns:ArrayOfDocumentEdition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfDocumentEdition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DocumentEdition" nillable="true" type="tns:DocumentEdition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentEdition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="documentName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="edition" type="tns:Edition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="pageNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="updateLocalEditions">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="updateLocalEditionsResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="getAllAttributeSets">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="getAllAttributeSetsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getAllAttributeSetsReturn" type="tns:ArrayOfAttributeSet" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfAttributeSet">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AttributeSet" nillable="true" type="tns:AttributeSet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="searchArticles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="articleName" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="articleId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="articleType" type="xs:string" />
+        <xs:element xmlns:q1="inRiver.ServiceModel.CCR2" minOccurs="0" maxOccurs="1" ref="q1:editionId" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="searchArticlesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="searchArticlesReturn" type="tns:ArticleSearchResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArticleSearchResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="articles" type="tns:ArrayOfArticle" />
+      <xs:element minOccurs="1" maxOccurs="1" name="maxResultCountExceeded" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAllObjectTemplates">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="getAllObjectTemplatesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getAllObjectTemplatesReturn" type="tns:ArrayOfObjectTemplateLight" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfObjectTemplateLight">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ObjectTemplateLight" nillable="true" type="tns:ObjectTemplateLight" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObjectTemplateLight">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="group" type="tns:AttributeSetGroup" />
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getObjectTemplate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="templateId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getObjectTemplateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getObjectTemplateReturn" type="tns:ObjectTemplate" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ObjectTemplate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="data" type="xs:base64Binary" />
+      <xs:element minOccurs="0" maxOccurs="1" name="group" type="tns:AttributeSetGroup" />
+      <xs:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getPublicationStructure">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="getPublicationStructureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="xml" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getResourceFromFileId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="resourceFileId" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="preview" type="xs:boolean" />
+        <xs:element minOccurs="1" maxOccurs="1" name="isHighRes" nillable="true" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getResourceFromFileIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="attribute" type="tns:Attribute" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addObjectTemplate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="xs:base64Binary" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addObjectTemplateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="id" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="updateObjectTemplate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="id" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="xs:base64Binary" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="updateObjectTemplateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="result" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getAuthenticationEnabledStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="isEnabled" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getAuthenticationTicket">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="username" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="environment" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getAuthenticationTicketResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ticketSignature" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="environmentId" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" name="ticketSignature2" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="validTo" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getUpdatedArticleAttributeTimestamps">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="atricleId" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="attributeIds" type="tns:ArrayOfString" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getUpdatedArticleAttributeTimestampsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="timestamps" type="tns:ArrayOfLong" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfLong">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

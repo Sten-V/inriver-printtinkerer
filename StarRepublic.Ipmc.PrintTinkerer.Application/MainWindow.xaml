@@ -1,0 +1,155 @@
+﻿<Window x:Class="StarRepublic.Ipmc.PrintTinkerer.Application.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StarRepublic.Ipmc.PrintTinkerer.Application"
+        xmlns:model="clr-namespace:StarRepublic.Ipmc.PrintTinkerer.Application.Model"
+        mc:Ignorable="d" Icon="starrepublic.ico"
+        Title="Print Tinkerer" Width="900" Height="800">
+    <Window.Resources>
+        <local:TypeOfConverter x:Key="TypeOfConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="5">
+            <Label>iPMC Cluster</Label>
+            <ComboBox x:Name="IpmcClusterComboBox" DisplayMemberPath="Name" Margin="0,0,5,0"/>
+
+            <Label>Username</Label>
+            <TextBox x:Name="Username" Width="150" Margin="0,0,5,0"/>
+
+            <Label>Password</Label>
+            <PasswordBox x:Name="Password" Width="150" Margin="0,0,5,0"/>
+
+            <Label>Environment</Label>
+            <TextBox x:Name="Environment" Width="50" Margin="0,0,5,0"/>
+
+            <Button Name="Connect" Click="Connect_Click" Width="80" Content="Connect"/>
+        </StackPanel>
+
+        <TreeView Grid.Row="1" Grid.Column="0" x:Name="TreeView" ItemsSource="{Binding Publications}" Margin="5" TreeViewItem.Expanded="TreeView_OnExpanded" >
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:HierarchicalEntity}" 
+                                              ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Path=Name}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" VerticalAlignment="Stretch" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Margin="0,5,0,5"/>
+
+        <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True" Margin="5">
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,5">
+                <Button x:Name="Get" DockPanel.Dock="Right" Margin="5,0,0,0" Width="80" Click="Get_Click" Content="Get">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=PrintObjectsComboBox, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=EditionsComboBox, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=TreeView, Path=SelectedItem}" Value="{x:Null}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=TreeView, Path=SelectedItem, Converter={StaticResource TypeOfConverter}}" Value="PublicationViewModel">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=TreeView, Path=SelectedItem, Converter={StaticResource TypeOfConverter}}" Value="SectionViewModel">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding ElementName=TreeView, Path=SelectedItem.IsLinkType}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <ComboBox DockPanel.Dock="Top" x:Name="PrintObjectsComboBox" ItemsSource="{Binding PrintObjects}" IsEnabled="{Binding RelativeSource={RelativeSource Self}, Path=HasItems}">
+                    <ComboBox.Resources>
+
+                        <DataTemplate x:Key="TextTemplate" DataType="{x:Type model:AttributeSetViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="[TXT]" Width="40"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate x:Key="ImageTemplate" DataType="{x:Type model:AttributeSetViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="[IMG]" Width="40"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate x:Key="HtmlTemplate" DataType="{x:Type model:AttributeSetViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="[HTM]" Width="40"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate x:Key="TableTemplate" DataType="{x:Type model:AttributeSetViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="[TBL]" Width="40"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type local:ObjectTemplateViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="[OBT]" Width="40"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type model:AttributeSetViewModel}">
+                            <ContentControl Content="{Binding}">
+                                <ContentControl.Style>
+                                    <Style TargetType="{x:Type ContentControl}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource TextTemplate}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding AttributeSetType}" Value="image">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource ImageTemplate}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding AttributeSetType}" Value="html">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource HtmlTemplate}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding AttributeSetType}" Value="table">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource TableTemplate}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+                        </DataTemplate>
+
+                    </ComboBox.Resources>
+
+                </ComboBox>
+                <ComboBox Name="EditionsComboBox" DisplayMemberPath="Name" ItemsSource="{Binding Editions}" IsEnabled="{Binding RelativeSource={RelativeSource Self}, Path=HasItems}"/>
+            </DockPanel>
+
+            <TextBox x:Name="AttributeSetResultTextBox" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
+        </DockPanel>
+
+        <GridSplitter Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch"/>
+
+        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" x:Name="LogTextBox" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Margin="5"/>
+    </Grid>
+</Window>

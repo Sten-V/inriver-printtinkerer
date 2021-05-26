@@ -1,0 +1,1020 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="inRiver.ServiceModel.CCR" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="inRiver.ServiceModel.CCR" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="inRiver.ServiceModel.CCR">
+      <xsd:element name="getArticle">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="articleIdentifier" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getArticleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getArticleReturn" type="tns:Article" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="Article">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="hasChildren" nillable="true" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="attributes" type="tns:ArrayOfAttribute" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="countrySpecificArticleIds" type="tns:ArrayOfString" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="identifier" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="type" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="timeStamp" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAttribute">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Attribute" nillable="true" type="tns:Attribute" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Attribute">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="defaultFetchStrategy" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="description" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="identifier" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="imageValues" type="tns:ArrayOfImageAttributeValue" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="metaAttribute" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="order" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="orderPrioId" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="prio" type="xsd:int" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="textValue" type="tns:TextAttributeValue" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="textValueAsString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="textValues" type="tns:ArrayOfTextAttributeValue" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="translated" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="versionIdentifier" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="timeStamp" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="delimiter" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfImageAttributeValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ImageAttributeValue" nillable="true" type="tns:ImageAttributeValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ImageAttributeValue">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BaseAttributeValue">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" maxOccurs="1" name="extension" type="xsd:string" />
+              <xsd:element minOccurs="1" maxOccurs="1" name="filesize" type="xsd:long" />
+              <xsd:element minOccurs="1" maxOccurs="1" name="height" type="xsd:int" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="imageStream" type="xsd:base64Binary" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="metadata" type="tns:ArrayOfMetadataPair" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="mimeType" type="xsd:string" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="path" type="xsd:string" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="previewImage" type="tns:PreviewImage" />
+              <xsd:element minOccurs="1" maxOccurs="1" name="resolution" type="xsd:int" />
+              <xsd:element minOccurs="1" maxOccurs="1" name="width" type="xsd:int" />
+              <xsd:element minOccurs="1" maxOccurs="1" name="resourceFileId" type="xsd:int" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="imageUrl" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="BaseAttributeValue" abstract="true">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="identifier" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TextAttributeValue">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BaseAttributeValue">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" maxOccurs="1" name="asString" type="xsd:string" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="value" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfMetadataPair">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="MetadataPair" nillable="true" type="tns:MetadataPair" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MetadataPair">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="key" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PreviewImage">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="height" type="xsd:int" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="image" type="xsd:base64Binary" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="mimeType" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="resolution" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="width" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTextAttributeValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TextAttributeValue" nillable="true" type="tns:TextAttributeValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfString">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getAttribute">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="article" type="tns:Article" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="editionId" type="xsd:long" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="attrSet" type="tns:AttributeSet" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="attributeIdentifier" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="attributeValueIdentifier" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="preview" type="xsd:boolean" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="applyFormatters" type="xsd:boolean" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="isHighRes" nillable="true" type="xsd:boolean" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="resourceType" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="resourceFileId" type="xsd:int" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="onlyAttributeData" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="AttributeSet">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="type" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="group" type="tns:AttributeSetGroup" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AttributeSetGroup">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="parent" type="tns:AttributeSetGroup" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getAttributeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getAttributeReturn" type="tns:Attribute" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAttributes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="articles" type="tns:ArrayOfArticle" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="editionId" type="xsd:long" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="attrSet" type="tns:AttributeSet" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="preview" type="xsd:boolean" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="applyFormatters" type="xsd:boolean" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="isHighRes" nillable="true" type="xsd:boolean" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="articleIdAndResourceFileId" type="tns:ArrayOfArticleIdResourceFileId" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="onlyAttributeData" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfArticle">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Article" nillable="true" type="tns:Article" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfArticleIdResourceFileId">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ArticleIdResourceFileId" nillable="true" type="tns:ArticleIdResourceFileId" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArticleIdResourceFileId">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="articleId" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="resourceFileId" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getAttributesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getAttributesReturn" type="tns:ArrayOfArticle" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAttributeSetImpl">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="attributeSet" type="tns:AttributeSet" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="edition" type="tns:Edition" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="article" type="tns:Article" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="Edition">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="businessUnit" type="tns:BusinessUnit" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="commonLanguage" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="country" type="tns:Country" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="language" type="tns:Language" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="text" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="unitType" type="tns:UnitType" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="versionCode" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="versionName" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BusinessUnit">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="identifier" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Country">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="identifier" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Language">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="code" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="identifier" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UnitType">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getAttributeSetImplResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getAttributeSetImplReturn" type="tns:AttributeSetImpl" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="AttributeSetImpl">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="attributes" type="tns:ArrayOfAttributeMapping" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="orderedAttributes" type="tns:ArrayOfAttributeMapping" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="attributeSet" type="tns:AttributeSet" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="tableDefinition" type="tns:TableDefinition" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAttributeMapping">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AttributeMapping" nillable="true" type="tns:AttributeMapping" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AttributeMapping">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Id" type="xsd:long" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Order" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Prio" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="AttributeSetImplId" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Attribute" type="tns:AttributeDefinition" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="TableColumnId" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="delimiter" type="tns:Delimiter" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AttributeDefinition">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Id" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Identifier" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="MetaAttribute" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="DefaultFetchStrategy" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="IsCustomAttribute" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Delimiter">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Id" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TableDefinition">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="removeEmptyRows" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="tableColumns" type="tns:ArrayOfTableColumn" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTableColumn">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TableColumn" nillable="true" type="tns:TableColumn" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TableColumn">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="attributes" type="tns:ArrayOfAttribute" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="identifier" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="removeIfEmpty" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="tableDefinition" type="tns:TableDefinition" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="title" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="widthMultiplier" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="widthInMM" nillable="true" type="xsd:float" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="columnIndex" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getAllEditions">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getAllEditionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getAllEditionsReturn" type="tns:ArrayOfEdition" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfEdition">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Edition" nillable="true" type="tns:Edition" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getArticles">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="documentId" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="parentArticleIdentifier" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getArticlesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getArticlesReturn" type="tns:ArrayOfArticle" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchSection">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="searchString" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchSectionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="structureObjects" type="tns:ArrayOfStructureObject" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfStructureObject">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="StructureObject" nillable="true" type="tns:StructureObject" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="StructureObject">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SectionId" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Id" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getSections">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="entityId" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getSectionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="structureObjects" type="tns:ArrayOfStructureObject" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDocumentEditions">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="documentId" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDocumentEditionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getDocumentEditionsReturn" type="tns:ArrayOfDocumentEdition" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfDocumentEdition">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="DocumentEdition" nillable="true" type="tns:DocumentEdition" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DocumentEdition">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="documentName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="edition" type="tns:Edition" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="pageNumber" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="updateLocalEditions">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="updateLocalEditionsResponse">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getAllAttributeSets">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getAllAttributeSetsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getAllAttributeSetsReturn" type="tns:ArrayOfAttributeSet" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfAttributeSet">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AttributeSet" nillable="true" type="tns:AttributeSet" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="searchArticles">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="articleName" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="articleId" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="articleType" type="xsd:string" />
+            <xsd:element xmlns:q1="inRiver.ServiceModel.CCR2" minOccurs="0" maxOccurs="1" ref="q1:editionId" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchArticlesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="searchArticlesReturn" type="tns:ArticleSearchResult" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArticleSearchResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="articles" type="tns:ArrayOfArticle" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="maxResultCountExceeded" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getAllObjectTemplates">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getAllObjectTemplatesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getAllObjectTemplatesReturn" type="tns:ArrayOfObjectTemplateLight" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfObjectTemplateLight">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ObjectTemplateLight" nillable="true" type="tns:ObjectTemplateLight" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ObjectTemplateLight">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="group" type="tns:AttributeSetGroup" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getObjectTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="templateId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getObjectTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="getObjectTemplateReturn" type="tns:ObjectTemplate" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ObjectTemplate">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="data" type="xsd:base64Binary" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="group" type="tns:AttributeSetGroup" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getPublicationStructure">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getPublicationStructureResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="xml" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getResourceFromFileId">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="resourceFileId" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="preview" type="xsd:boolean" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="isHighRes" nillable="true" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getResourceFromFileIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="attribute" type="tns:Attribute" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="addObjectTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="data" type="xsd:base64Binary" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="addObjectTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:long" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="name" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateObjectTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:long" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="data" type="xsd:base64Binary" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateObjectTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAuthenticationEnabledStatusResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="isEnabled" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAuthenticationTicket">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="username" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="password" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="environment" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAuthenticationTicketResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="ticketSignature" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="environmentId" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="ticketSignature2" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="validTo" type="xsd:dateTime" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getUpdatedArticleAttributeTimestamps">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="atricleId" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="attributeIds" type="tns:ArrayOfString" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getUpdatedArticleAttributeTimestampsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="timestamps" type="tns:ArrayOfLong" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfLong">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="long" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="inRiver.ServiceModel.CCR2">
+      <xsd:element name="editionId" type="xsd:string" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getArticleRequest">
+    <wsdl:part name="parameters" element="tns:getArticle" />
+  </wsdl:message>
+  <wsdl:message name="getArticleResponse">
+    <wsdl:part name="parameters" element="tns:getArticleResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAttributeRequest">
+    <wsdl:part name="parameters" element="tns:getAttribute" />
+  </wsdl:message>
+  <wsdl:message name="getAttributeResponse">
+    <wsdl:part name="parameters" element="tns:getAttributeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAttributesRequest">
+    <wsdl:part name="parameters" element="tns:getAttributes" />
+  </wsdl:message>
+  <wsdl:message name="getAttributesResponse">
+    <wsdl:part name="parameters" element="tns:getAttributesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAttributeSetImplRequest">
+    <wsdl:part name="parameters" element="tns:getAttributeSetImpl" />
+  </wsdl:message>
+  <wsdl:message name="getAttributeSetImplResponse">
+    <wsdl:part name="parameters" element="tns:getAttributeSetImplResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllEditionsRequest">
+    <wsdl:part name="parameters" element="tns:getAllEditions" />
+  </wsdl:message>
+  <wsdl:message name="getAllEditionsResponse">
+    <wsdl:part name="parameters" element="tns:getAllEditionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getArticlesRequest">
+    <wsdl:part name="parameters" element="tns:getArticles" />
+  </wsdl:message>
+  <wsdl:message name="getArticlesResponse">
+    <wsdl:part name="parameters" element="tns:getArticlesResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchSectionRequest">
+    <wsdl:part name="parameters" element="tns:searchSection" />
+  </wsdl:message>
+  <wsdl:message name="searchSectionResponse">
+    <wsdl:part name="parameters" element="tns:searchSectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSectionsRequest">
+    <wsdl:part name="parameters" element="tns:getSections" />
+  </wsdl:message>
+  <wsdl:message name="getSectionsResponse">
+    <wsdl:part name="parameters" element="tns:getSectionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentEditionsRequest">
+    <wsdl:part name="parameters" element="tns:getDocumentEditions" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentEditionsResponse">
+    <wsdl:part name="parameters" element="tns:getDocumentEditionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateLocalEditionsRequest">
+    <wsdl:part name="parameters" element="tns:updateLocalEditions" />
+  </wsdl:message>
+  <wsdl:message name="updateLocalEditionsResponse">
+    <wsdl:part name="parameters" element="tns:updateLocalEditionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllAttributeSetsRequest">
+    <wsdl:part name="parameters" element="tns:getAllAttributeSets" />
+  </wsdl:message>
+  <wsdl:message name="getAllAttributeSetsResponse">
+    <wsdl:part name="parameters" element="tns:getAllAttributeSetsResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchArticlesRequest">
+    <wsdl:part name="parameters" element="tns:searchArticles" />
+  </wsdl:message>
+  <wsdl:message name="searchArticlesResponse">
+    <wsdl:part name="parameters" element="tns:searchArticlesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllObjectTemplatesRequest">
+    <wsdl:part name="parameters" element="tns:getAllObjectTemplates" />
+  </wsdl:message>
+  <wsdl:message name="getAllObjectTemplatesResponse">
+    <wsdl:part name="parameters" element="tns:getAllObjectTemplatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getObjectTemplateRequest">
+    <wsdl:part name="parameters" element="tns:getObjectTemplate" />
+  </wsdl:message>
+  <wsdl:message name="getObjectTemplateResponse">
+    <wsdl:part name="parameters" element="tns:getObjectTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPublicationStructureRequest">
+    <wsdl:part name="parameters" element="tns:getPublicationStructure" />
+  </wsdl:message>
+  <wsdl:message name="getPublicationStructureResponse">
+    <wsdl:part name="parameters" element="tns:getPublicationStructureResponse" />
+  </wsdl:message>
+  <wsdl:message name="getResourceFromFileIdRequest">
+    <wsdl:part name="parameters" element="tns:getResourceFromFileId" />
+  </wsdl:message>
+  <wsdl:message name="getResourceFromFileIdResponse">
+    <wsdl:part name="parameters" element="tns:getResourceFromFileIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="addObjectTemplateRequest">
+    <wsdl:part name="parameters" element="tns:addObjectTemplate" />
+  </wsdl:message>
+  <wsdl:message name="addObjectTemplateResponse">
+    <wsdl:part name="parameters" element="tns:addObjectTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateObjectTemplateRequest">
+    <wsdl:part name="parameters" element="tns:updateObjectTemplate" />
+  </wsdl:message>
+  <wsdl:message name="updateObjectTemplateResponse">
+    <wsdl:part name="parameters" element="tns:updateObjectTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICCRService_GetAuthenticationEnabledStatus_InputMessage" />
+  <wsdl:message name="getAuthenticationEnabledStatusResponse">
+    <wsdl:part name="parameters" element="tns:getAuthenticationEnabledStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAuthenticationTicketRequest">
+    <wsdl:part name="parameters" element="tns:getAuthenticationTicket" />
+  </wsdl:message>
+  <wsdl:message name="getAuthenticationTicketResponse">
+    <wsdl:part name="parameters" element="tns:getAuthenticationTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="updatedArticleAttributeTimestampsRequest">
+    <wsdl:part name="parameters" element="tns:getUpdatedArticleAttributeTimestamps" />
+  </wsdl:message>
+  <wsdl:message name="updatedArticleAttributeTimestampsResponse">
+    <wsdl:part name="parameters" element="tns:getUpdatedArticleAttributeTimestampsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICCRService">
+    <wsdl:operation name="getArticle">
+      <wsdl:input wsam:Action="getArticle" name="getArticleRequest" message="tns:getArticleRequest" />
+      <wsdl:output wsam:Action="getArticleResponse" name="getArticleResponse" message="tns:getArticleResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAttribute">
+      <wsdl:input wsam:Action="getAttribute" name="getAttributeRequest" message="tns:getAttributeRequest" />
+      <wsdl:output wsam:Action="getAttributeResponse" name="getAttributeResponse" message="tns:getAttributeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAttributes">
+      <wsdl:input wsam:Action="getAttributes" name="getAttributesRequest" message="tns:getAttributesRequest" />
+      <wsdl:output wsam:Action="getAttributesResponse" name="getAttributesResponse" message="tns:getAttributesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAttributeSetImpl">
+      <wsdl:input wsam:Action="getAttributeSetImpl" name="getAttributeSetImplRequest" message="tns:getAttributeSetImplRequest" />
+      <wsdl:output wsam:Action="getAttributeSetImplResponse" name="getAttributeSetImplResponse" message="tns:getAttributeSetImplResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllEditions">
+      <wsdl:input wsam:Action="getAllEditions" name="getAllEditionsRequest" message="tns:getAllEditionsRequest" />
+      <wsdl:output wsam:Action="getAllEditionsResponse" name="getAllEditionsResponse" message="tns:getAllEditionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getArticles">
+      <wsdl:input wsam:Action="getArticles" name="getArticlesRequest" message="tns:getArticlesRequest" />
+      <wsdl:output wsam:Action="getArticlesResponse" name="getArticlesResponse" message="tns:getArticlesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="searchSection">
+      <wsdl:input wsam:Action="SearchSection" name="searchSectionRequest" message="tns:searchSectionRequest" />
+      <wsdl:output wsam:Action="searchSectionResponse" name="searchSectionResponse" message="tns:searchSectionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSections">
+      <wsdl:input wsam:Action="GetSections" name="getSectionsRequest" message="tns:getSectionsRequest" />
+      <wsdl:output wsam:Action="getSectionsResponse" name="getSectionsResponse" message="tns:getSectionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentEditions">
+      <wsdl:input wsam:Action="getDocumentEditions" name="getDocumentEditionsRequest" message="tns:getDocumentEditionsRequest" />
+      <wsdl:output wsam:Action="getDocumentEditionsResponse" name="getDocumentEditionsResponse" message="tns:getDocumentEditionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateLocalEditions">
+      <wsdl:input wsam:Action="updateLocalEditions" name="updateLocalEditionsRequest" message="tns:updateLocalEditionsRequest" />
+      <wsdl:output wsam:Action="updateLocalEditionsResponse" name="updateLocalEditionsResponse" message="tns:updateLocalEditionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllAttributeSets">
+      <wsdl:input wsam:Action="getAllAttributeSets" name="getAllAttributeSetsRequest" message="tns:getAllAttributeSetsRequest" />
+      <wsdl:output wsam:Action="getAllAttributeSetsResponse" name="getAllAttributeSetsResponse" message="tns:getAllAttributeSetsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="searchArticles">
+      <wsdl:input wsam:Action="searchArticles" name="searchArticlesRequest" message="tns:searchArticlesRequest" />
+      <wsdl:output wsam:Action="searchArticlesResponse" name="searchArticlesResponse" message="tns:searchArticlesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllObjectTemplates">
+      <wsdl:input wsam:Action="getAllObjectTemplates" name="getAllObjectTemplatesRequest" message="tns:getAllObjectTemplatesRequest" />
+      <wsdl:output wsam:Action="getAllObjectTemplatesResponse" name="getAllObjectTemplatesResponse" message="tns:getAllObjectTemplatesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getObjectTemplate">
+      <wsdl:input wsam:Action="getObjectTemplate" name="getObjectTemplateRequest" message="tns:getObjectTemplateRequest" />
+      <wsdl:output wsam:Action="getObjectTemplateResponse" name="getObjectTemplateResponse" message="tns:getObjectTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getPublicationStructure">
+      <wsdl:input wsam:Action="getPublicationStructure" name="getPublicationStructureRequest" message="tns:getPublicationStructureRequest" />
+      <wsdl:output wsam:Action="getPublicationStructureResponse" name="getPublicationStructureResponse" message="tns:getPublicationStructureResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getResourceFromFileId">
+      <wsdl:input wsam:Action="getResourceFromFileId" name="getResourceFromFileIdRequest" message="tns:getResourceFromFileIdRequest" />
+      <wsdl:output wsam:Action="getResourceFromFileIdResponse" name="getResourceFromFileIdResponse" message="tns:getResourceFromFileIdResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="addObjectTemplate">
+      <wsdl:input wsam:Action="addObjectTemplate" name="addObjectTemplateRequest" message="tns:addObjectTemplateRequest" />
+      <wsdl:output wsam:Action="addObjectTemplateResponse" name="addObjectTemplateResponse" message="tns:addObjectTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateObjectTemplate">
+      <wsdl:input wsam:Action="updateObjectTemplate" name="updateObjectTemplateRequest" message="tns:updateObjectTemplateRequest" />
+      <wsdl:output wsam:Action="updateObjectTemplateResponse" name="updateObjectTemplateResponse" message="tns:updateObjectTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationEnabledStatus">
+      <wsdl:input wsam:Action="getAuthenticationEnabledStatus" message="tns:ICCRService_GetAuthenticationEnabledStatus_InputMessage" />
+      <wsdl:output wsam:Action="getAuthenticationEnabledStatusResponse" name="getAuthenticationEnabledStatusResponse" message="tns:getAuthenticationEnabledStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationTicket">
+      <wsdl:input wsam:Action="getAuthenticationTicket" name="getAuthenticationTicketRequest" message="tns:getAuthenticationTicketRequest" />
+      <wsdl:output wsam:Action="getAuthenticationTicketResponse" name="getAuthenticationTicketResponse" message="tns:getAuthenticationTicketResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getUpdatedArticleAttributeTimestamps">
+      <wsdl:input wsam:Action="getUpdatedArticleAttributeTimestamps" name="updatedArticleAttributeTimestampsRequest" message="tns:updatedArticleAttributeTimestampsRequest" />
+      <wsdl:output wsam:Action="getUpdatedArticleAttributeTimestampsResponse" name="updatedArticleAttributeTimestampsResponse" message="tns:updatedArticleAttributeTimestampsResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="inRiver_ICCRService" type="tns:ICCRService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getArticle">
+      <soap:operation soapAction="getArticle" style="document" />
+      <wsdl:input name="getArticleRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getArticleResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAttribute">
+      <soap:operation soapAction="getAttribute" style="document" />
+      <wsdl:input name="getAttributeRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAttributeResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAttributes">
+      <soap:operation soapAction="getAttributes" style="document" />
+      <wsdl:input name="getAttributesRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAttributesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAttributeSetImpl">
+      <soap:operation soapAction="getAttributeSetImpl" style="document" />
+      <wsdl:input name="getAttributeSetImplRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAttributeSetImplResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEditions">
+      <soap:operation soapAction="getAllEditions" style="document" />
+      <wsdl:input name="getAllEditionsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAllEditionsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getArticles">
+      <soap:operation soapAction="getArticles" style="document" />
+      <wsdl:input name="getArticlesRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getArticlesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchSection">
+      <soap:operation soapAction="SearchSection" style="document" />
+      <wsdl:input name="searchSectionRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="searchSectionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSections">
+      <soap:operation soapAction="GetSections" style="document" />
+      <wsdl:input name="getSectionsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSectionsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentEditions">
+      <soap:operation soapAction="getDocumentEditions" style="document" />
+      <wsdl:input name="getDocumentEditionsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getDocumentEditionsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateLocalEditions">
+      <soap:operation soapAction="updateLocalEditions" style="document" />
+      <wsdl:input name="updateLocalEditionsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="updateLocalEditionsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllAttributeSets">
+      <soap:operation soapAction="getAllAttributeSets" style="document" />
+      <wsdl:input name="getAllAttributeSetsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAllAttributeSetsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchArticles">
+      <soap:operation soapAction="searchArticles" style="document" />
+      <wsdl:input name="searchArticlesRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="searchArticlesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllObjectTemplates">
+      <soap:operation soapAction="getAllObjectTemplates" style="document" />
+      <wsdl:input name="getAllObjectTemplatesRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAllObjectTemplatesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getObjectTemplate">
+      <soap:operation soapAction="getObjectTemplate" style="document" />
+      <wsdl:input name="getObjectTemplateRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getObjectTemplateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPublicationStructure">
+      <soap:operation soapAction="getPublicationStructure" style="document" />
+      <wsdl:input name="getPublicationStructureRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getPublicationStructureResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResourceFromFileId">
+      <soap:operation soapAction="getResourceFromFileId" style="document" />
+      <wsdl:input name="getResourceFromFileIdRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getResourceFromFileIdResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addObjectTemplate">
+      <soap:operation soapAction="addObjectTemplate" style="document" />
+      <wsdl:input name="addObjectTemplateRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="addObjectTemplateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateObjectTemplate">
+      <soap:operation soapAction="updateObjectTemplate" style="document" />
+      <wsdl:input name="updateObjectTemplateRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="updateObjectTemplateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationEnabledStatus">
+      <soap:operation soapAction="getAuthenticationEnabledStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAuthenticationEnabledStatusResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationTicket">
+      <soap:operation soapAction="getAuthenticationTicket" style="document" />
+      <wsdl:input name="getAuthenticationTicketRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAuthenticationTicketResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUpdatedArticleAttributeTimestamps">
+      <soap:operation soapAction="getUpdatedArticleAttributeTimestamps" style="document" />
+      <wsdl:input name="updatedArticleAttributeTimestampsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="updatedArticleAttributeTimestampsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>
